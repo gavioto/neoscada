@@ -1,1 +1,0 @@
-export ECLIPSE_SCADA_HOME=/usr

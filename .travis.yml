@@ -1,0 +1,21 @@
+language: java
+dist: xenial
+
+jdk:
+  - openjdk8
+
+install:
+  - echo ==== Setting up toolchain.xml ====
+  - ls /usr/lib/jvm
+  - ls
+  - export MAVEN_SKIP_RC=true
+  - export MAVEN_OPTS="-Dmaven.repo.local=$HOME/.m2/repository -Xms1024m -Xmx3072m"
+  - export CI=TRAVIS
+  - hash -r
+
+cache:
+  directories:
+    - $HOME/.downloads
+
+script:
+  - travis_wait 45 mvn -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -Ddownload.cache.directory=$HOME/.downloads clean install

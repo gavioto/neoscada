@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Syslog Network Protocol
+Bundle-Name: Syslog Network Protocol (Incubation)
 Bundle-SymbolicName: org.eclipse.scada.protocol.syslog
-Bundle-Version: 0.2.0.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-Vendor: Eclipse NeoSCADA Project
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.eclipse.scada.protocol.syslog;version="0.2.0",
- org.eclipse.scada.protocol.syslog.time;version="0.2.0"
-Import-Package: io.netty.buffer;version="4.0.19.Final",
- io.netty.channel;version="4.0.19.Final",
- io.netty.handler.codec;version="4.0.19.Final",
- io.netty.util;version="4.0.19.Final",
- org.slf4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.scada.protocol.syslog;version="0.5.0",
+ org.eclipse.scada.protocol.syslog.time;version="0.5.0"
+Import-Package: io.netty.buffer;version="[4.0.0,5.0.0)",
+ io.netty.channel;version="[4.0.0,5.0.0)",
+ io.netty.handler.codec;version="[4.0.0,5.0.0)",
+ io.netty.util;version="[4.0.0,5.0.0)",
+ org.slf4j;version="[1.7.2,2.0.0)"

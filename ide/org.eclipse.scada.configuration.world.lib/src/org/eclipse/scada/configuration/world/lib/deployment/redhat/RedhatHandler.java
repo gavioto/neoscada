@@ -46,6 +46,7 @@ import org.eclipse.scada.configuration.world.lib.deployment.FileInformation;
 import org.eclipse.scada.configuration.world.lib.deployment.FileOptions;
 import org.eclipse.scada.configuration.world.lib.deployment.ScriptMaker;
 import org.eclipse.scada.configuration.world.lib.deployment.startup.StartupHandler;
+import org.eclipse.scada.configuration.world.lib.utils.Constants;
 
 public class RedhatHandler extends CommonPackageHandler
 {
@@ -132,7 +133,7 @@ public class RedhatHandler extends CommonPackageHandler
 
             final BuilderContext ctx = builder.newContext ();
 
-            for ( final Map.Entry<String, FileInformation> dir : new TreeMap<> ( context.getDirectories () ).entrySet () /*Sorted*/ )
+            for ( final Map.Entry<String, FileInformation> dir : new TreeMap<> ( context.getDirectories () ).entrySet () /* Sorted */ )
             {
                 ctx.addDirectory ( dir.getKey (), BuilderContext.simpleDirectoryProvider ().customize ( fi -> applyFileInformation ( fi, dir.getValue (), true ) ) );
             }
@@ -193,7 +194,7 @@ public class RedhatHandler extends CommonPackageHandler
     {
         if ( this.deploy.isMultiUserScreen () )
         {
-            return "test -f ~eclipsescada/.screenrc && echo \"multiuser on\nacladd root\" > ~eclipsescada/.screenrc";
+            return "test -f ~" + Constants.NEOSCADA_USER + "/.screenrc && echo \"multiuser on\nacladd root\" > ~" + Constants.NEOSCADA_USER + "/.screenrc";
         }
         else
         {
@@ -205,12 +206,16 @@ public class RedhatHandler extends CommonPackageHandler
     {
         final Set<String> dependencies = new HashSet<> ();
 
-        dependencies.add ( "org.eclipse.scada" );
+        dependencies.add ( "neoscada.common" );
         if ( needP2 () )
         {
-            dependencies.add ( "org.eclipse.scada.p2" ); //$NON-NLS-1$
+            dependencies.add ( "org.eclipse.platform" ); //$NON-NLS-1$
+            dependencies.add ( "emf-xsd-Update" ); //$NON-NLS-1$
+            dependencies.add ( "equinox-sdk" ); //$NON-NLS-1$
+            dependencies.add ( "gemini-dbaccess" ); //$NON-NLS-1$
+            dependencies.add ( "neoscada.deploy.p2director" ); //$NON-NLS-1$
         }
-        dependencies.add ( "org.eclipse.scada.deploy.p2-incubation" );
+        dependencies.add ( "neoscada.protocols.p2" );
         dependencies.addAll ( this.deploy.getAdditionalDependencies () );
         dependencies.addAll ( additional );
 

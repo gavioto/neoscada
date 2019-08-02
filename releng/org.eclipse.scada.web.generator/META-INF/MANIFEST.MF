@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Acceleo Generator Module Runtime Plug-in
+Bundle-Name: Acceleo Generator Module Runtime Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.scada.web.generator
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.scada.web.generator.Activator
-Bundle-Vendor: Eclipse Modeling Project
+Bundle-Vendor: Eclipse NeoSCADA Project
 Require-Bundle: org.eclipse.core.runtime, 
  org.eclipse.emf.ecore, 
  org.eclipse.emf.ecore,
@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.acceleo.profiler;bundle-version="3.3.0",
  org.eclipse.acceleo.engine;bundle-version="3.3.0",
  com.google.guava
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.scada.web.generator.main,

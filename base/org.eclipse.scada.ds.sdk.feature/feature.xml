@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.scada.ds.sdk"
+      id="org.eclipse.neoscada.ds.sdk.feature"
       label="%featureName"
-      version="0.4.0.qualifier"
+      version="0.5.0.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="1.0.1.qualifier">
@@ -20,11 +20,11 @@
    </license>
 
    <includes
-         id="org.eclipse.scada.ds"
+         id="org.eclipse.neoscada.ds.feature"
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.scada.ds.source"
+         id="org.eclipse.neoscada.ds.feature.source"
          version="0.0.0"/>
 
 </feature>

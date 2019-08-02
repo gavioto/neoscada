@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>build.helper.test1-parent</artifactId>
 		<groupId>org.eclipse.scada.releng</groupId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>0.5.0-SNAPSHOT</version>
 		<relativePath>../build.helper.test1-parent</relativePath>
 	</parent>
 	<groupId>org.eclipse.scada.releng</groupId>
@@ -37,7 +37,7 @@
 											<type>directory</type>
 											<mapper>
 												<type>perm</type>
-												<prefix>/usr/share/eclipsescada/p2/${project.groupId}</prefix>
+												<prefix>/usr/share/neoscada/p2/${project.groupId}</prefix>
 											</mapper>
 										</data>
 									</dataSet>

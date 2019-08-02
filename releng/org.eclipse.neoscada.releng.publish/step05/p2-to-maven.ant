@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="artifact assembly" default="run">
+	<description>
+        now try to create maven repo from p2 repo
+    </description>
+
+	<property file="${basedir}/../generated/src/main/resources/buildinfo.properties" prefix="imported" />
+	<property file="${basedir}/../generated/src/main/resources/publish.properties" />
+
+	<property name="p2tom2.download.url" value="http://download.eclipse.org/eclipsescada/releng/p2tom2-${p2tom2.version}.zip"/>
+	
+	<property environment="env" />
+	<property name="env.JAVA_ARGS" value="" />
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="run" description="description">
+		<mkdir dir="${assemble.target.path}/downloads/org.eclipse.neoscada/drops/${imported.release.fullVersion}/${imported.release.buildType}${imported.build.timestamp}/maven" />
+		<mkdir dir="${tmp.target.path}/p2tom2/tmp" />
+
+		<echo message="P2toM2: ${p2tom2.version}" />
+
+		<get src="${p2tom2.download.url}" dest="${tmp.target.path}/p2tom2.zip" usetimestamp="true" />
+		<unzip src="${tmp.target.path}/p2tom2.zip" dest="${tmp.target.path}/p2tom2" />
+
+		<java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true" dir="${tmp.target.path}/p2tom2">
+			<classpath>
+				<fileset dir="${tmp.target.path}/p2tom2/plugins">
+					<include name="org.eclipse.equinox.launcher_*.jar" />
+				</fileset>
+			</classpath>
+
+			<jvmarg line="${env.JAVA_ARGS}" />
+
+			<arg value="-consoleLog" />
+
+			<!-- configuration -->
+			<arg value="${basedir.uri}/p2tom2.properties" />
+			<!-- source repo -->
+			<arg value="${assemble.target.uri}/downloads/org.eclipse.neoscada/drops/${imported.release.fullVersion}/${imported.release.buildType}${imported.build.timestamp}/p2" />
+			<!-- validation repos -->
+			<arg value="http://download.eclipse.org/releases/oxygen" />
+
+			<sysproperty key="local.proxy.host" value="${local.proxy.host}" />
+			<sysproperty key="local.proxy.port" value="${local.proxy.port}" />
+
+			<sysproperty key="path.p2temp" file="${tmp.target.path}/p2tom2/tmp" />
+			<sysproperty key="path.output" file="${assemble.target.path}/downloads/org.eclipse.neoscada/drops/${imported.release.fullVersion}/${imported.release.buildType}${imported.build.timestamp}/maven" />
+			<sysproperty key="stripQualifier" value="true" />
+			<sysproperty key="fakeForCentral" value="true" />
+			<sysproperty key="groupIdPrefix" value="org.eclipse.neoscada" />
+		</java>
+	</target>
+</project>

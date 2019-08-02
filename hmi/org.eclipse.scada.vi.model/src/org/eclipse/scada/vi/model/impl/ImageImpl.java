@@ -26,11 +26,11 @@ import org.eclipse.scada.vi.model.VisualInterfacePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.scada.vi.model.impl.ImageImpl#getUri <em>Uri</em>}</li>
  *   <li>{@link org.eclipse.scada.vi.model.impl.ImageImpl#getImageAlignment <em>Image Alignment</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

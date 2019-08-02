@@ -43,15 +43,16 @@ import org.eclipse.scada.configuration.world.lib.deployment.Contents;
 import org.eclipse.scada.configuration.world.lib.deployment.ScoopFilesVisitor;
 import org.eclipse.scada.configuration.world.lib.deployment.ScriptMaker;
 import org.eclipse.scada.configuration.world.lib.deployment.startup.StartupHandler;
-import org.eclipse.scada.utils.pkg.deb.DebianPackageWriter;
-import org.eclipse.scada.utils.pkg.deb.control.BinaryPackageControlFile;
+import org.eclipse.scada.configuration.world.lib.utils.Constants;
+import org.eclipse.packagedrone.utils.deb.build.DebianPackageWriter;
+import org.eclipse.packagedrone.utils.deb.control.BinaryPackageControlFile;
 import org.eclipse.scada.utils.str.StringHelper;
 
 import com.google.common.io.CharStreams;
 
 public class DebianHandler extends CommonPackageHandler
 {
-    private static final String CONTROL_SCRIPTS_DIR = "/usr/lib/eclipsescada/packagescripts";
+    private static final String CONTROL_SCRIPTS_DIR = "/usr/lib/" + Constants.NEOSCADA_USER +"/packagescripts";
 
     private static final String NL = "\n";
 
@@ -94,7 +95,9 @@ public class DebianHandler extends CommonPackageHandler
         packageControlFile.setPriority ( "required" ); //$NON-NLS-1$
         packageControlFile.setSection ( "misc" ); //$NON-NLS-1$
         packageControlFile.setMaintainer ( String.format ( "%s <%s>", this.deploy.getMaintainer ().getName (), this.deploy.getMaintainer ().getEmail () ) ); //$NON-NLS-1$
-        packageControlFile.setDescription ( String.format ( "Configuration package for %s", Nodes.makeName ( this.applicationNode ) ), "This is an automatically generated configuration package" );
+        // packageControlFile.setDescription ( String.format ( "Configuration package for %s", Nodes.makeName ( this.applicationNode ) ), "This is an automatically generated configuration package" );
+        // FIXME: use multiline option again at some point, but has to be implemented in package drone first
+        packageControlFile.setDescription ( String.format ( "Configuration package for %s", Nodes.makeName ( this.applicationNode ) ) + "\n\nThis is an automatically generated configuration package" );
 
         packageControlFile.set ( BinaryPackageControlFile.Fields.CONFLICTS, "org.openscada.drivers.common, org.openscada" ); //$NON-NLS-1$
 
@@ -216,7 +219,7 @@ public class DebianHandler extends CommonPackageHandler
     {
         final Set<String> result = new TreeSet<> ( dependencies );
 
-        result.add ( "org.eclipse.scada" ); //$NON-NLS-1$
+        result.add ( "neoscada.common" ); //$NON-NLS-1$
 
         return StringHelper.join ( result, ", " ); //$NON-NLS-1$
     }
@@ -227,10 +230,14 @@ public class DebianHandler extends CommonPackageHandler
 
         if ( needP2 () )
         {
-            result.add ( "org.eclipse.scada.p2" ); //$NON-NLS-1$
+            result.add ( "org.eclipse.platform" ); //$NON-NLS-1$
+            result.add ( "emf-xsd-Update" ); //$NON-NLS-1$
+            result.add ( "equinox-sdk" ); //$NON-NLS-1$
+            result.add ( "gemini-dbaccess" ); //$NON-NLS-1$
+            result.add ( "neoscada.deploy.p2director" ); //$NON-NLS-1$
         }
 
-        result.add ( "org.eclipse.scada.deploy.p2-incubation" ); //$NON-NLS-1$
+        result.add ( "neoscada.protocols.p2" ); //$NON-NLS-1$
         result.addAll ( this.deploy.getAdditionalDependencies () );
 
         final StartupHandler sh = getStartupHandler ();
